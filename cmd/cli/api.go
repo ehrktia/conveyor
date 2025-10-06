@@ -49,7 +49,13 @@ var SampleDriverCmd = &cobra.Command{
 }
 
 func init() {
-	APIServerCmd.Flags().StringP("port", "p", "", "Port to run the API Server on (default: 3000)")
-	SampleDriverCmd.Flags().StringP("name", "n", "sampledriver", "Name of the driver")
-	SampleDriverCmd.Flags().StringSliceP("resources", "r", []string{"pipe"}, "Resources the driver will manage")
+	APIServerCmd.Flags().StringP("port", "p", "",
+		`Port to run the API Server on (default: 3000)`)
+	SampleDriverCmd.Flags().StringP("name", "n", "sampledriver",
+		`Name of the driver`)
+	SampleDriverCmd.Flags().StringSliceP("resources", "r", []string{"pipe"},
+		`Resources the driver will manage`)
+	initCmd.Flags().StringSliceP("init", "i", []string{
+		"config", "force", "auth-enabled", "api-port", "nats-port", "ca"},
+		`initalize cli with options to configure auth,api-ports,nats-port,ca cert`)
 }
