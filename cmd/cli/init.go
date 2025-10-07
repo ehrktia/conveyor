@@ -17,9 +17,17 @@ sub commands required for auth-enabled,api-port,nats-port,ca cert`,
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "error initializing startup command:%v", err)
 			fmt.Fprintf(os.Stderr, "%s", "using default config to startup")
-			init = []string{"config"}
+			os.Exit(1)
 		}
 		if len(init) == 0 {
+			// load default config
+			config, err := loadDefaultConfig()
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "error loading default config:%v\n", err)
+				os.Exit(1)
+			}
+			fmt.Fprintf(os.Stderr, "config used:%#v\n", config)
+
 			init = []string{"config"}
 		}
 	},
