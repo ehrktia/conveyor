@@ -5,3 +5,4 @@ athens-data
 .venv
 default.etcd
 node_modules
+bin/**/*

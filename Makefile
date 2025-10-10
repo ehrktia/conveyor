@@ -3,7 +3,7 @@
 # Version constants
 SWAG_VERSION := v1.16.6
 
-.PHONY: help install-swag swagger-init start docs
+.PHONY: help install-swag swagger-init start docs build run
 
 # Default target
 help: ## Show this help message
@@ -32,3 +32,12 @@ test: ## Run tests
 
 docs:
 	cd docs && npm run start
+
+build:
+		@mkdir -p bin
+	    go build -ldflags="-s -w" -o bin/conveyor main.go
+	    @ls -lart bin
+
+run:
+		@bin/conveyor --help
+
