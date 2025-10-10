@@ -48,6 +48,19 @@ var SampleDriverCmd = &cobra.Command{
 	},
 }
 
+const DEFAULT_CONFIG = "DEFAULT_CONFIG"
+const DEFAULT_CA_CERT = "DEFAULT_CA_CERT"
+const DEFAULT_PRIVATE_KEY = "DEFAULT_PRIVATE_KEY"
+const DEFAULT_CA = "DEFAULT_CA"
+
+var cliConfig string
+var apiPort string
+var natsPort string
+var authEnable bool
+var caCert string
+var privateKey string
+var cert string
+
 func init() {
 	APIServerCmd.Flags().StringP("port", "p", "",
 		`Port to run the API Server on (default: 3000)`)
@@ -55,7 +68,18 @@ func init() {
 		`Name of the driver`)
 	SampleDriverCmd.Flags().StringSliceP("resources", "r", []string{"pipe"},
 		`Resources the driver will manage`)
-	initCmd.Flags().StringSliceP("init", "i", []string{
-		"config", "force", "auth-enabled", "api-port", "nats-port", "ca"},
-		`initalize cli with options to configure auth,api-ports,nats-port,ca cert`)
+	initCmd.Flags().StringVarP(&cliConfig, "config", "c",
+		"", "config for application")
+	initCmd.Flags().StringVarP(&apiPort, "api-port", "a",
+		"", "api port for the server")
+	initCmd.Flags().StringVarP(&natsPort, "nats-port", "m",
+		"", "nats port")
+	initCmd.Flags().BoolVarP(&authEnable, "auth-enable", "e",
+		false, "auth-enabled")
+	initCmd.Flags().StringVarP(&caCert, "ca", "n",
+		"", "ca-cert")
+	initCmd.Flags().StringVarP(&privateKey, "private-key", "p",
+		"", "private-key")
+	initCmd.Flags().StringVarP(&cert, "crt", "r",
+		"", "cert")
 }
